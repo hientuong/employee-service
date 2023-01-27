@@ -23,15 +23,11 @@ public class EmployeeController {
 
     private final DepartmentService departmentService;
 
-    @GetMapping("/department/employees")
-    public ResponseEntity<List<Employee>> getAllEmployeesByDepartmentName(@RequestParam(value = "department_name") String departmentName) {
-        List<Employee> employees = employeeService.getAllEmployeesByDepartmentName(departmentName);
-        return new ResponseEntity<>(employees, HttpStatus.OK);
-    }
-
     @GetMapping("/employees")
-    public ResponseEntity<List<Employee>> getEmployeesByName(@RequestParam(value = "name") Optional<String> name, @RequestParam(value = "address") Optional<String> address) {
-        List<Employee> employees = employeeService.getEmployeesByNameAndAddress(name.orElse(""), address.orElse(""));
+    public ResponseEntity<List<Employee>> getEmployeesByNameOrAddressOrDepartmentName(@RequestParam(value = "name", required = false) String name,
+                                                             @RequestParam(value = "address", required = false) String address,
+                                                             @RequestParam(value = "department_name", required = false) String department_name) {
+        List<Employee> employees = employeeService.findByNameOrAddressOrDepartmentName(name, address, department_name);
         return new ResponseEntity<>(employees, HttpStatus.OK);
     }
 

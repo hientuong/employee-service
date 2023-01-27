@@ -19,13 +19,8 @@ import java.util.List;
 public class EmployeeService {
     private final EmployeeRepository employeeRepository;
 
-    public List<Employee> getAllEmployeesByDepartmentName(String departmentName) {
-        List<Employee> employees = employeeRepository.findByDepartmentName(departmentName);
-        return employees;
-    }
-
-    public List<Employee> getEmployeesByNameAndAddress(String name, String address) {
-        return employeeRepository.findByNameOrAddress(name, address);
+    public List<Employee> findByNameOrAddressOrDepartmentName(String name, String address, String departmentName) {
+        return employeeRepository.findByNameOrAddressOrDepartmentName(name, address, departmentName);
     }
 
     public Employee createEmployee(EmployeeRequest employeeRequest, Department department) {
